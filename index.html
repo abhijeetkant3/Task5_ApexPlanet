@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A-Kart | Home</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+    <header>
+        <div class="container nav-container">
+            <a href="index.html" class="logo">A-Kart</a>
+            <div class="search-container">
+                <input type="text" id="search-input" class="search-input" placeholder="Search products...">
+                <div id="search-dropdown" class="search-results-dropdown"></div>
+            </div>
+            <nav class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="products.html">Shop</a>
+                <a href="cart.html">Cart</a>
+            </nav>
+            <div class="nav-actions">
+                <button id="theme-toggle" class="icon-btn" aria-label="Toggle theme"><i class="fas fa-moon"></i></button>
+                <a href="wishlist.html" class="icon-btn" aria-label="Wishlist">
+                    <i class="far fa-heart"></i>
+                    <span id="wishlist-badge" class="badge" style="display:none;">0</span>
+                </a>
+                <a href="cart.html" class="icon-btn" aria-label="Cart">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span id="cart-badge" class="badge" style="display:none;">0</span>
+                </a>
+                <a href="login.html" class="icon-btn" aria-label="Profile"><i class="far fa-user"></i></a>
+                <button class="icon-btn mobile-menu-btn" aria-label="Menu"><i class="fas fa-bars"></i></button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="hero" style="background: linear-gradient(135deg, var(--primary-color) 0%, #970000 100%); color: white; padding: 4rem 1rem; text-align: center;">
+            <div class="container">
+                <h1 style="font-size: 3rem; margin-bottom: 1rem;">Welcome to A-Kart</h1>
+                <p style="font-size: 1.25rem; margin-bottom: 2rem; max-width: 600px; margin-inline: auto;">Discover the best products at unbeatable prices. Shop the latest trends in electronics, fashion, and more.</p>
+                <a href="products.html" class="btn" style="background: white; color: var(--primary-color); font-size: 1.1rem; padding: 0.75rem 2rem;">Shop Now</a>
+            </div>
+        </section>
+
+        <!-- Featured Products -->
+        <section class="container mt-2">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
+                <h2>Featured Products</h2>
+                <div style="display: flex; align-items: center; gap: 1.5rem;">
+                    <div class="sort-container">
+                        <label for="home-sort" style="color: var(--text-muted); font-size: 0.9rem; font-weight: 500;">Sort By:</label>
+                        <select id="home-sort" class="sort-select">
+                            <option value="relevant">Relevant</option>
+                            <option value="price-asc">Price: Low to High</option>
+                            <option value="price-desc">Price: High to Low</option>
+                            <option value="rating-desc">Rating: High to Low</option>
+                            <option value="rating-asc">Rating: Low to High</option>
+                            <option value="az">A-Z</option>
+                            <option value="za">Z-A</option>
+                        </select>
+                    </div>
+                    <a href="products.html" style="color: var(--primary-color); font-weight: 500; font-size: 0.9rem;">View All &rarr;</a>
+                </div>
+            </div>
+            <div id="featured-products" class="product-grid">
+                <!-- Skeletons / Products injected here -->
+            </div>
+        </section>
+
+        <!-- Features Banner -->
+        <section class="container mt-2 mb-2" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; text-align: center; padding: 3rem 0; border-top: 1px solid var(--border-color);">
+            <div>
+                <i class="fas fa-shipping-fast" style="font-size: 2rem; color: var(--primary-color); margin-bottom: 1rem;"></i>
+                <h3>Free Shipping</h3>
+                <p class="text-muted" style="margin-top: 0.5rem; font-size: 0.875rem;">On orders over $50</p>
+            </div>
+            <div>
+                <i class="fas fa-undo" style="font-size: 2rem; color: var(--primary-color); margin-bottom: 1rem;"></i>
+                <h3>Easy Returns</h3>
+                <p class="text-muted" style="margin-top: 0.5rem; font-size: 0.875rem;">30 days return policy</p>
+            </div>
+            <div>
+                <i class="fas fa-lock" style="font-size: 2rem; color: var(--primary-color); margin-bottom: 1rem;"></i>
+                <h3>Secure Payment</h3>
+                <p class="text-muted" style="margin-top: 0.5rem; font-size: 0.875rem;">100% secure checkout</p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h4>A-Kart</h4>
+                    <p style="color: var(--text-muted); font-size: 0.875rem;">Your one-stop destination for all things awesome. We provide the best quality products at the most affordable prices.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="products.html">Products</a></li>
+                        <li><a href="cart.html">Cart</a></li>
+                        <li><a href="login.html">Login</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Customer Service</h4>
+                    <ul>
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">Shipping Policy</a></li>
+                        <li><a href="#">Returns & Exchanges</a></li>
+                        <li><a href="#">FAQs</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 A-Kart. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modules -->
+    <script type="module" src="assets/js/main.js"></script>
+    <script type="module" src="assets/js/search.js"></script>
+    <script type="module" src="assets/js/cart.js"></script>
+    <script type="module" src="assets/js/wishlist.js"></script>
+    <script type="module" src="assets/js/products.js"></script>
+</body>
+</html>
