@@ -1,12 +1,13 @@
 import Storage from './storage.js';
+import { CONFIG } from './config.js';
 
-const BASE_URL = 'https://fakestoreapi.com';
+const BASE_URL = CONFIG.FAKESTORE_API_URL;
 const CACHE_TIME = 1000 * 60 * 60; // 1 hour caching
 
 const API = {
     async fetchWithCache(url, cacheKey) {
         const cached = Storage.get(cacheKey);
-        const now = new Date().getTime();
+        const now = new Date().getTime(); 
 
         if (cached && cached.timestamp && (now - cached.timestamp < CACHE_TIME)) {
             return cached.data;

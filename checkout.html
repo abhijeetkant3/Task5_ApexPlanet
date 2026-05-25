@@ -52,35 +52,25 @@
                     <div class="form-row">
                         <div class="form-group">
                             <label>City</label>
-                            <input type="text" required>
+                            <input type="text" id="city" required>
                         </div>
                         <div class="form-group">
                             <label>Zip Code</label>
-                            <input type="text" required>
+                            <input type="text" id="zip" required>
                         </div>
-                    </div>
-
-                    <h3 style="margin-top: 2rem; margin-bottom: 1rem;">Payment Information</h3>
-                    <div class="form-group">
-                        <label>Name on Card</label>
-                        <input type="text" required>
                     </div>
                     <div class="form-group">
-                        <label>Card Number</label>
-                        <input type="text" placeholder="XXXX-XXXX-XXXX-XXXX" required>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label>Expiry Date</label>
-                            <input type="text" placeholder="MM/YY" required>
-                        </div>
-                        <div class="form-group">
-                            <label>CVV</label>
-                            <input type="text" placeholder="123" required>
-                        </div>
+                        <label>Phone Number</label>
+                        <input type="tel" id="phone" placeholder="10-digit mobile number" required pattern="[0-9]{10}">
                     </div>
 
-                    <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1rem; padding: 1rem; font-size: 1.1rem;">Place Order</button>
+                    <h3 style="margin-top: 2rem; margin-bottom: 1rem;">Payment Method</h3>
+                    <div style="padding: 1rem; border: 1px solid var(--primary-color); border-radius: var(--radius-sm); background: var(--bg-secondary); display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+                        <i class="fas fa-shield-alt" style="color: var(--primary-color); font-size: 1.5rem;"></i>
+                        <p style="margin: 0; font-size: 0.9rem;">You will be redirected to <strong>PhonePe</strong> secure payment gateway to complete your transaction.</p>
+                    </div>
+
+                    <button type="submit" id="place-order-btn" class="btn btn-primary" style="width: 100%; margin-top: 1rem; padding: 1rem; font-size: 1.1rem;">Proceed to Pay</button>
                 </form>
             </div>
 
@@ -97,14 +87,18 @@
         </div>
     </main>
 
+    <script src="assets/js/env.js"></script>
     <script type="module" src="assets/js/main.js"></script>
     <script type="module">
         import cartInstance from './assets/js/cart.js';
         import { showToast } from './assets/js/main.js';
+        import { initiatePayment } from './assets/js/payment.js';
 
         document.addEventListener('DOMContentLoaded', () => {
             const itemsContainer = document.getElementById('checkout-items');
             const totalEl = document.getElementById('checkout-total');
+            const checkoutForm = document.getElementById('checkout-form');
+            const placeOrderBtn = document.getElementById('place-order-btn');
 
             if (cartInstance.items.length === 0) {
                 itemsContainer.innerHTML = '<p>No items.</p>';
@@ -119,19 +113,31 @@
                 });
             }
 
-            totalEl.textContent = `$${cartInstance.getTotal().toFixed(2)}`;
+            const totalAmount = cartInstance.getTotal();
+            totalEl.textContent = `$${totalAmount.toFixed(2)}`;
 
-            document.getElementById('checkout-form').addEventListener('submit', (e) => {
+            checkoutForm.addEventListener('submit', async (e) => {
                 e.preventDefault();
                 if(cartInstance.items.length === 0) {
                     showToast('Your cart is empty!', 'error');
                     return;
                 }
-                showToast('Order placed successfully! Redirecting...');
-                cartInstance.clear();
-                setTimeout(() => {
-                    window.location.href = 'index.html';
-                }, 2000);
+
+                const phone = document.getElementById('phone').value;
+                
+                try {
+                    placeOrderBtn.disabled = true;
+                    placeOrderBtn.textContent = 'Processing...';
+                    showToast('Initiating payment...');
+                    
+                    await initiatePayment(totalAmount, phone);
+                    
+                    // Note: Redirect happens inside initiatePayment
+                } catch (error) {
+                    showToast(error.message, 'error');
+                    placeOrderBtn.disabled = false;
+                    placeOrderBtn.textContent = 'Proceed to Pay';
+                }
             });
         });
     </script>
